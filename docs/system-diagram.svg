@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="680" viewBox="0 0 1180 680" role="img" aria-labelledby="title desc">
+  <title id="title">OfficePulse AI system diagram</title>
+  <desc id="desc">Simulated devices and optional Wokwi telemetry flow into one backend, then to the live dashboard and Discord bot.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#71d4c8" />
+    </marker>
+    <style>
+      .bg { fill: #101417; }
+      .box { fill: #172326; stroke: #3b6668; stroke-width: 2; rx: 18; }
+      .accent { fill: #26301f; stroke: #c89b37; }
+      .text { fill: #edf7f5; font: 700 24px system-ui, sans-serif; }
+      .small { fill: #a9c5c3; font: 500 16px system-ui, sans-serif; }
+      .line { stroke: #71d4c8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="680" rx="28" />
+  <text class="text" x="48" y="58">OfficePulse AI Architecture</text>
+  <text class="small" x="48" y="88">One backend source of truth for dashboard, Discord, alerts, and optional Wokwi telemetry.</text>
+
+  <rect class="box" x="60" y="170" width="240" height="126" rx="18" />
+  <text class="text" x="88" y="214">Simulator</text>
+  <text class="small" x="88" y="244">15 corrected devices</text>
+  <text class="small" x="88" y="270">office-hours behavior</text>
+
+  <rect class="box" x="60" y="370" width="240" height="126" rx="18" />
+  <text class="text" x="88" y="414">Wokwi ESP32</text>
+  <text class="small" x="88" y="444">one representative room</text>
+  <text class="small" x="88" y="470">optional HTTP ingest</text>
+
+  <rect class="accent" x="420" y="250" width="320" height="180" rx="18" />
+  <text class="text" x="454" y="300">Backend API</text>
+  <text class="small" x="454" y="334">Express + Socket.IO</text>
+  <text class="small" x="454" y="362">state store, watts, kWh</text>
+  <text class="small" x="454" y="390">alerts, AI facts only</text>
+
+  <rect class="box" x="875" y="120" width="245" height="132" rx="18" />
+  <text class="text" x="905" y="164">React Dashboard</text>
+  <text class="small" x="905" y="194">live office layout</text>
+  <text class="small" x="905" y="220">Socket.IO updates</text>
+
+  <rect class="box" x="875" y="308" width="245" height="132" rx="18" />
+  <text class="text" x="905" y="352">Discord Bot</text>
+  <text class="small" x="905" y="382">!status !room !usage</text>
+  <text class="small" x="905" y="408">same backend facts</text>
+
+  <rect class="box" x="875" y="496" width="245" height="112" rx="18" />
+  <text class="text" x="905" y="540">Boss/User</text>
+  <text class="small" x="905" y="570">browser or Discord</text>
+
+  <path class="line" d="M300 233 C350 235, 370 290, 420 320" />
+  <path class="line" d="M300 433 C350 430, 370 390, 420 366" />
+  <path class="line" d="M740 316 C805 250, 805 190, 875 186" />
+  <path class="line" d="M740 350 C805 350, 805 372, 875 374" />
+  <path class="line" d="M997 440 L997 496" />
+  <path class="line" d="M997 252 L997 308" />
+  <text class="small" x="760" y="272">state:update</text>
+  <text class="small" x="760" y="342">REST + alert:new</text>
+</svg>

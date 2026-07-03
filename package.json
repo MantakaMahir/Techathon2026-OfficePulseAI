@@ -1,0 +1,25 @@
+{
+  "name": "officepulse-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/shared",
+    "packages/ai",
+    "apps/server",
+    "apps/dashboard",
+    "apps/bot"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @officepulse/shared -w @officepulse/ai && concurrently -n server,dashboard -c cyan,magenta \"npm run dev -w @officepulse/server\" \"npm run dev -w @officepulse/dashboard\"",
+    "dev:bot": "npm run build -w @officepulse/shared -w @officepulse/ai && npm run dev -w @officepulse/bot",
+    "build": "npm run build --workspaces",
+    "check": "npm run build -w @officepulse/shared -w @officepulse/ai && npm run check --workspaces",
+    "demo:server": "npm run dev -w @officepulse/server",
+    "demo:dashboard": "npm run dev -w @officepulse/dashboard"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3"
+  }
+}

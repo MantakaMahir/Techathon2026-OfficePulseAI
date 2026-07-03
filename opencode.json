@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "wokwi": {
+      "type": "local",
+      "command": [".opencode/bin/wokwi-cli.exe", "mcp"],
+      "environment": {
+        "WOKWI_CLI_TOKEN": "{env:WOKWI_CLI_TOKEN}"
+      },
+      "enabled": true
+    }
+  }
+}

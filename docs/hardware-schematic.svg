@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720" role="img" aria-labelledby="title desc">
+  <title id="title">OfficePulse representative room hardware schematic</title>
+  <desc id="desc">ESP32 reads five switches and drives relay-symbol outputs for three lights and two fans.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#71d4c8" />
+    </marker>
+    <style>
+      .bg { fill: #101417; }
+      .box { fill: #172326; stroke: #3b6668; stroke-width: 2; rx: 16; }
+      .load { fill: #2b2318; stroke: #c89b37; stroke-width: 2; rx: 12; }
+      .text { fill: #edf7f5; font: 700 22px system-ui, sans-serif; }
+      .small { fill: #a9c5c3; font: 500 15px system-ui, sans-serif; }
+      .wire { stroke: #71d4c8; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .warn { fill: #f2c85c; font: 700 15px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="720" rx="28" />
+  <text class="text" x="48" y="58">Representative Wokwi Room Circuit</text>
+  <text class="small" x="48" y="88">ESP32 senses five wall switches. Relay outputs represent isolated control for real AC lights/fans.</text>
+
+  <rect class="box" x="480" y="135" width="250" height="430" rx="18" />
+  <text class="text" x="540" y="180">ESP32 DevKit</text>
+  <text class="small" x="520" y="222">INPUT_PULLUP switch pins</text>
+  <text class="small" x="520" y="252">GPIO 32, 33, 25</text>
+  <text class="small" x="520" y="278">GPIO 26, 27</text>
+  <text class="small" x="520" y="330">Relay output pins</text>
+  <text class="small" x="520" y="360">GPIO 14, 12, 13</text>
+  <text class="small" x="520" y="386">GPIO 18, 19</text>
+  <text class="small" x="520" y="438">ADC current input</text>
+  <text class="small" x="520" y="466">GPIO 34 optional</text>
+
+  <g>
+    <rect class="box" x="70" y="126" width="240" height="62" rx="12" /><text class="small" x="98" y="164">Light 1 switch -> GPIO32</text>
+    <rect class="box" x="70" y="204" width="240" height="62" rx="12" /><text class="small" x="98" y="242">Light 2 switch -> GPIO33</text>
+    <rect class="box" x="70" y="282" width="240" height="62" rx="12" /><text class="small" x="98" y="320">Light 3 switch -> GPIO25</text>
+    <rect class="box" x="70" y="360" width="240" height="62" rx="12" /><text class="small" x="98" y="398">Fan 1 switch -> GPIO26</text>
+    <rect class="box" x="70" y="438" width="240" height="62" rx="12" /><text class="small" x="98" y="476">Fan 2 switch -> GPIO27</text>
+  </g>
+
+  <g>
+    <rect class="load" x="870" y="126" width="230" height="62" rx="12" /><text class="small" x="898" y="164">GPIO14 -> relay -> LED 1</text>
+    <rect class="load" x="870" y="204" width="230" height="62" rx="12" /><text class="small" x="898" y="242">GPIO12 -> relay -> LED 2</text>
+    <rect class="load" x="870" y="282" width="230" height="62" rx="12" /><text class="small" x="898" y="320">GPIO13 -> relay -> LED 3</text>
+    <rect class="load" x="870" y="360" width="230" height="62" rx="12" /><text class="small" x="898" y="398">GPIO18 -> relay -> fan 1</text>
+    <rect class="load" x="870" y="438" width="230" height="62" rx="12" /><text class="small" x="898" y="476">GPIO19 -> relay -> fan 2</text>
+  </g>
+
+  <path class="wire" d="M310 157 L480 220" /><path class="wire" d="M310 235 L480 250" /><path class="wire" d="M310 313 L480 276" />
+  <path class="wire" d="M310 391 L480 304" /><path class="wire" d="M310 469 L480 330" />
+  <path class="wire" d="M730 360 L870 157" /><path class="wire" d="M730 382 L870 235" /><path class="wire" d="M730 404 L870 313" />
+  <path class="wire" d="M730 426 L870 391" /><path class="wire" d="M730 448 L870 469" />
+
+  <rect class="box" x="70" y="590" width="1030" height="72" rx="14" />
+  <text class="warn" x="96" y="622">Electrical note:</text>
+  <text class="small" x="222" y="622">A real ESP32 must not drive AC loads directly. Use isolated relay/SSR modules and current sensors.</text>
+  <text class="small" x="96" y="648">In Wokwi, LEDs and small motors are safe load symbols only.</text>
+</svg>

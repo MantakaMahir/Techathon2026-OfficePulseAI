@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+.DS_Store
+coverage/
+*.log
+apps/dashboard/.vite/
+.opencode/bin/
+.playwright-cli/
+*.tsbuildinfo
