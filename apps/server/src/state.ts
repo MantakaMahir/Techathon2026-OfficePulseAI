@@ -335,3 +335,4 @@ function isAfterHours(date: Date): boolean {
   const hour = date.getHours();
   return hour < 9 || hour >= 17;
 }
+
