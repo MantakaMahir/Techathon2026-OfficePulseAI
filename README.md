@@ -148,10 +148,9 @@ Fast judging flow:
 
 ## 14. Team Contributions
 
-Member 1: Backend API, simulator, alerts.
-Member 2: Dashboard, UX, Socket.IO client.
-Member 3: Discord bot and AI response wrapper.
-Member 4: Wokwi circuit docs, diagrams, README, demo video.
+Mantaka Mahir: Backend API, simulator, alerts, integration testing.
+Al Mobin Talukder: Dashboard, UX, Socket.IO client, demo flow.
+Ismail Hossain: Discord bot, AI response wrapper, Wokwi circuit docs and diagrams.
 
 ## 15. Future Improvements
 
