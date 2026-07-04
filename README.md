@@ -105,9 +105,9 @@ Optional slash commands can be registered with `npm run register:commands -w @of
 Circuit guide: `hardware/pin-mapping.md`.
 Firmware: `hardware/firmware/officepulse_room.ino`.
 Schematic diagram: `docs/hardware-schematic.svg`.
-Wokwi link placeholder: `hardware/wokwi-link.md`.
+Public Wokwi link and screenshot: `hardware/wokwi-link.md`, `hardware/wokwi-screenshot.png`.
 
-The representative circuit uses one ESP32 room with 5 switches, 3 LED loads, 2 motor/fan indicators, relay-symbol outputs, and optional ADC current simulation. The problem statement says not to generate complete Wokwi project exports, so this repo includes the wiring guide and firmware instead of a full `diagram.json`.
+The representative circuit uses one ESP32 room with 5 switches, 3 yellow light indicators, 2 blue fan indicators, 220 ohm LED resistors, and optional ADC current simulation. Real deployment would use relay/SSR modules for AC loads. The problem statement says not to generate complete Wokwi project exports, so this repo includes the wiring guide, firmware, screenshot, and public Wokwi link instead of committing a full `diagram.json`.
 
 ## 11. AI Integration
 

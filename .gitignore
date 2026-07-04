@@ -10,3 +10,4 @@ apps/dashboard/.vite/
 .opencode/bin/
 .playwright-cli/
 *.tsbuildinfo
+.wokwi/

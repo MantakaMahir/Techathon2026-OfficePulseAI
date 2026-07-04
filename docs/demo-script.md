@@ -22,7 +22,7 @@ Run `!status`, `!room work2`, `!usage`, and `!alerts`. Mention every command fet
 
 ## 2:20-2:40 Wokwi
 
-Show `docs/hardware-schematic.svg` and `hardware/pin-mapping.md`. Explain ESP32 input switches, relay outputs, LED/motor load simulation, and optional HTTP telemetry.
+Show `docs/hardware-schematic.svg`, `hardware/pin-mapping.md`, `hardware/wokwi-screenshot.png`, and the public Wokwi link. Explain ESP32 input switches, LED/fan indicators, real relay/SSR requirement for AC loads, and optional HTTP telemetry.
 
 ## 2:40-3:00 Wrap-up
 
