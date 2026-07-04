@@ -120,3 +120,4 @@ async function api<T>(path: string): Promise<T> {
 function aiOptions() {
   return { apiKey: process.env.OPENAI_API_KEY, model: process.env.OPENAI_MODEL };
 }
+
