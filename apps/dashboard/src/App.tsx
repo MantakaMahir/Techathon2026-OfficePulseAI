@@ -308,3 +308,4 @@ async function fetchState(): Promise<OfficeState> {
   if (!response.ok) throw new Error("Could not load backend state.");
   return (await response.json()) as OfficeState;
 }
+
