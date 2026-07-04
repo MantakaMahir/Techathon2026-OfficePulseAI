@@ -36,7 +36,7 @@ export default function App() {
 
   async function toggleSimMode() {
     const next = simMode === "auto" ? "manual" : "auto";
-    await post(`/api/sim/mode/${next}`);
+    await fetch(`${API_URL}/api/sim/mode/${next}`, { method: "POST" });
     setSimMode(next);
   }
 
@@ -70,15 +70,15 @@ export default function App() {
         <Kpi label="Active alerts" value={String(state.alerts.length)} detail={state.alerts[0]?.room ?? "No active room alert"} tone={state.alerts.length ? "danger" : "success"} />
       </section>
 
+      <footer className="controls-bar">
+        <Controls onPost={post} simMode={simMode} onToggleMode={toggleSimMode} />
+      </footer>
+
       <main className="dashboard-grid">
         <OfficeMap rooms={state.rooms} onToggle={(id) => post(`/api/sim/toggle/${id}`)} />
         <PowerPanel usage={state.usage} rooms={state.rooms} history={state.history} />
         <AlertsPanel alerts={state.alerts} recentAlerts={state.recentAlerts} />
       </main>
-
-      <footer className="controls-bar">
-        <Controls onPost={post} simMode={simMode} onToggleMode={toggleSimMode} />
-      </footer>
 
       <section className="room-grid" aria-label="Room device panels">
         {state.rooms.map((room) => (
