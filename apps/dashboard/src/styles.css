@@ -449,28 +449,114 @@ meter {
   color: var(--muted);
 }
 
-.button-stack button {
-  min-height: 42px;
+.sim-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: var(--primary);
+  background: transparent;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-mode-pill.manual {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sim-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.sim-mode-pill.auto .sim-dot {
+  animation: simPulse 2s ease-in-out infinite;
+}
+
+.sim-mode-pill.manual .sim-dot {
+  background: var(--accent);
+  animation: none;
+}
+
+.controls-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: var(--surface);
+}
+
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.controls-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-right: 4px;
+}
+
+.controls-group button,
+.controls-mode-toggle {
+  min-height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
   color: var(--ink);
   background: var(--surface-strong);
   cursor: pointer;
+  font-size: 0.88rem;
 }
 
-.button-stack button:hover:not(:disabled) {
+.controls-group button:hover:not(:disabled) {
   border-color: var(--primary);
 }
 
-.button-stack button:first-child,
-.button-stack button:nth-child(2) {
+.controls-group button:first-of-type,
+.controls-group button:nth-of-type(2) {
   color: oklch(0.985 0.006 68);
   background: oklch(0.435 0.105 68);
 }
 
-.button-stack button:disabled {
+.controls-group button:disabled {
   cursor: wait;
   opacity: 0.65;
+}
+
+.controls-mode-toggle {
+  border-color: var(--primary);
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.controls-mode-toggle.manual {
+  border-color: var(--accent);
+  color: oklch(0.985 0.006 68);
+  background: oklch(0.435 0.105 68);
+}
+
+.controls-mode-toggle:hover {
+  filter: brightness(1.12);
+}
+
+@keyframes simPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .room-grid {
@@ -574,6 +660,9 @@ meter {
   .room-zone { min-height: 360px; }
   .topbar { align-items: start; flex-wrap: wrap; }
   .live-pill { margin-left: 0; }
+  .sim-mode-pill { order: 4; width: 100%; justify-content: center; }
+  .controls-bar { flex-direction: column; align-items: stretch; }
+  .controls-group { justify-content: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

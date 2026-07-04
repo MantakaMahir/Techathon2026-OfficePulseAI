@@ -40,6 +40,7 @@ let history: UsageSnapshot[] = [];
 let todayKwh = 0;
 let lastEnergyAt = Date.now();
 let alertCounter = 1;
+let simulatorActive = true;
 
 export function getState(recordHistory = false): StateChange {
   return finalize(recordHistory);
@@ -100,6 +101,14 @@ export function ingestIot(payload: IotIngestPayload): StateChange {
   }
 
   return finalize(true);
+}
+
+export function isSimulatorActive(): boolean {
+  return simulatorActive;
+}
+
+export function setSimulatorActive(active: boolean): void {
+  simulatorActive = active;
 }
 
 export function simulatorTick(): StateChange {

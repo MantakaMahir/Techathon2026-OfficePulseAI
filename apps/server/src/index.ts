@@ -9,8 +9,10 @@ import {
   allOnScenario,
   getState,
   ingestIot,
+  isSimulatorActive,
   nightForgottenScenario,
   resetOffice,
+  setSimulatorActive,
   setTimeMode,
   simulatorTick,
   toggleDevice,
@@ -94,6 +96,11 @@ app.post("/api/sim/reset", (_req, res) => {
   res.json(result.state);
 });
 
+app.post("/api/sim/mode/:mode", (req, res) => {
+  setSimulatorActive(req.params.mode === "auto");
+  res.json({ mode: isSimulatorActive() ? "auto" : "manual" });
+});
+
 app.post("/api/sim/time/:mode", (req, res) => {
   const mode = req.params.mode as TimeMode;
   if (!["real", "office", "after-hours"].includes(mode)) return res.status(400).json({ error: "Invalid time mode" });
@@ -112,7 +119,7 @@ io.on("connection", (socket) => {
   socket.emit("state:update", getState().state);
 });
 
-setInterval(() => broadcast(simulatorTick()), 7000);
+setInterval(() => { if (isSimulatorActive()) broadcast(simulatorTick()); }, 7000);
 
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   res.status(400).json({ error: err.message || "Request failed" });

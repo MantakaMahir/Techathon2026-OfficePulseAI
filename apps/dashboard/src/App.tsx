@@ -9,6 +9,7 @@ export default function App() {
   const [state, setState] = useState<OfficeState | null>(null);
   const [connected, setConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [simMode, setSimMode] = useState<"auto" | "manual">("auto");
 
   useEffect(() => {
     fetchState().then(setState).catch((err: Error) => setError(err.message));
@@ -33,14 +34,20 @@ export default function App() {
     setState((await response.json()) as OfficeState);
   }
 
+  async function toggleSimMode() {
+    const next = simMode === "auto" ? "manual" : "auto";
+    await post(`/api/sim/mode/${next}`);
+    setSimMode(next);
+  }
+
   if (!state) {
-    return <Shell connected={connected} error={error}>Loading OfficePulse live state...</Shell>;
+    return <Shell connected={connected} error={error} simMode="auto" onToggleMode={() => {}}>Loading OfficePulse live state...</Shell>;
   }
 
   const worstRoom = [...state.rooms].sort((a, b) => b.powerW - a.powerW)[0];
 
   return (
-    <Shell connected={connected} error={error}>
+    <Shell connected={connected} error={error} simMode={simMode} onToggleMode={toggleSimMode}>
       <header className="hero-panel">
         <div>
           <p className="label">OfficePulse AI</p>
@@ -67,7 +74,6 @@ export default function App() {
         <OfficeMap rooms={state.rooms} onToggle={(id) => post(`/api/sim/toggle/${id}`)} />
         <PowerPanel usage={state.usage} rooms={state.rooms} history={state.history} />
         <AlertsPanel alerts={state.alerts} recentAlerts={state.recentAlerts} />
-        <Controls onPost={post} />
       </main>
 
       <section className="room-grid" aria-label="Room device panels">
@@ -75,11 +81,15 @@ export default function App() {
           <RoomCard key={room.id} room={room} onToggle={(id) => post(`/api/sim/toggle/${id}`)} />
         ))}
       </section>
+
+      <footer className="controls-bar">
+        <Controls onPost={post} simMode={simMode} onToggleMode={toggleSimMode} />
+      </footer>
     </Shell>
   );
 }
 
-function Shell({ connected, error, children }: { connected: boolean; error: string | null; children: ReactNode }) {
+function Shell({ connected, error, simMode, onToggleMode, children }: { connected: boolean; error: string | null; simMode: "auto" | "manual"; onToggleMode: () => void; children: ReactNode }) {
   return (
     <div className="app-shell">
       <nav className="topbar" aria-label="Application status">
@@ -88,6 +98,10 @@ function Shell({ connected, error, children }: { connected: boolean; error: stri
           <strong>OfficePulse AI</strong>
           <span>Live energy command center</span>
         </div>
+        <button className={`sim-mode-pill ${simMode}`} onClick={onToggleMode} aria-label={`Simulation mode: ${simMode === "auto" ? "dynamic" : "manual"}. Click to switch.`}>
+          <span aria-hidden="true" className="sim-dot" />
+          {simMode === "auto" ? "Dynamic data" : "Manual control"}
+        </button>
         <div className={`live-pill ${connected ? "is-live" : ""}`}>
           <span aria-hidden="true" />
           {connected ? "Live connected" : "Connecting"}
@@ -230,7 +244,7 @@ function AlertsPanel({ alerts, recentAlerts }: { alerts: Alert[]; recentAlerts: 
   );
 }
 
-function Controls({ onPost }: { onPost: (path: string) => Promise<void> }) {
+function Controls({ onPost, simMode, onToggleMode }: { onPost: (path: string) => Promise<void>; simMode: "auto" | "manual"; onToggleMode: () => void }) {
   const [busy, setBusy] = useState<string | null>(null);
 
   async function run(label: string, path: string) {
@@ -243,20 +257,22 @@ function Controls({ onPost }: { onPost: (path: string) => Promise<void> }) {
   }
 
   return (
-    <section className="panel controls-panel">
-      <div className="panel-heading">
-        <div>
-          <p className="label">Demo controls</p>
-          <h2>Force judge-visible scenarios</h2>
-        </div>
+    <>
+      <div className="controls-group">
+        <span className="controls-label">Demo scenarios</span>
+        <button onClick={() => run("night", "/api/sim/scenario/night-forgotten")} disabled={busy !== null}>10 PM forgotten devices</button>
+        <button onClick={() => run("all-on", "/api/sim/scenario/all-on/work2")} disabled={busy !== null}>Work Room 2 all ON 2h+</button>
+        <button onClick={() => run("office", "/api/sim/time/office")} disabled={busy !== null}>Office hours</button>
+        <button onClick={() => run("reset", "/api/sim/reset")} disabled={busy !== null}>Reset</button>
       </div>
-      <div className="button-stack">
-        <button onClick={() => run("night", "/api/sim/scenario/night-forgotten")} disabled={busy !== null}>Simulate 10 PM forgotten devices</button>
-        <button onClick={() => run("all-on", "/api/sim/scenario/all-on/work2")} disabled={busy !== null}>Force Work Room 2 all ON for 2+ hours</button>
-        <button onClick={() => run("office", "/api/sim/time/office")} disabled={busy !== null}>Simulate office hours</button>
-        <button onClick={() => run("reset", "/api/sim/reset")} disabled={busy !== null}>Reset office to normal</button>
-      </div>
-    </section>
+      <button
+        className={`controls-mode-toggle ${simMode}`}
+        onClick={onToggleMode}
+        aria-pressed={simMode === "manual"}
+      >
+        {simMode === "auto" ? "Switch to manual" : "Resume dynamic simulation"}
+      </button>
+    </>
   );
 }
 
