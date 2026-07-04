@@ -11,3 +11,4 @@ apps/dashboard/.vite/
 .playwright-cli/
 *.tsbuildinfo
 .wokwi/
+.impeccable/
