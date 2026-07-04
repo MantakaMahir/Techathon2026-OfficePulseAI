@@ -12,3 +12,4 @@ apps/dashboard/.vite/
 *.tsbuildinfo
 .wokwi/
 .impeccable/
+docs/demo-script.md
