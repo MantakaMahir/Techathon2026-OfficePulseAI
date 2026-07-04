@@ -76,15 +76,15 @@ export default function App() {
         <AlertsPanel alerts={state.alerts} recentAlerts={state.recentAlerts} />
       </main>
 
+      <footer className="controls-bar">
+        <Controls onPost={post} simMode={simMode} onToggleMode={toggleSimMode} />
+      </footer>
+
       <section className="room-grid" aria-label="Room device panels">
         {state.rooms.map((room) => (
           <RoomCard key={room.id} room={room} onToggle={(id) => post(`/api/sim/toggle/${id}`)} />
         ))}
       </section>
-
-      <footer className="controls-bar">
-        <Controls onPost={post} simMode={simMode} onToggleMode={toggleSimMode} />
-      </footer>
     </Shell>
   );
 }
