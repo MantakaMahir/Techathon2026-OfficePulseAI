@@ -113,6 +113,14 @@ The representative circuit uses one ESP32 room with 5 switches, 3 yellow light i
 
 AI is used only to rewrite backend-calculated facts into friendly text. If `OPENAI_API_KEY` is missing or the API fails, the bot and summary endpoint use deterministic fallback text. The AI prompt explicitly says not to invent numbers, rooms, devices, or alerts.
 
+| Item | Detail |
+| --- | --- |
+| Model | `OPENAI_MODEL`, default `gpt-4o-mini` |
+| Prompt location | `packages/ai/src/index.ts` |
+| Used by | `/api/summary` and Discord bot friendly replies |
+| Guardrail | The model receives facts only and is instructed to never invent numbers, rooms, devices, or alerts |
+| Fallback | If `OPENAI_API_KEY` is unset or the API fails, deterministic text is returned |
+
 ## 12. Setup Instructions
 
 Requirements: Node.js 20+.
